@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('layouts-admin.master');
+// });
+
+
+Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/products',[ProductsController::class,'index'])->name('products');
+    Route::post('/products/store',[ProductsController::class,'store'])->name('products.store');
+
+
 });
+Route::get('/login',[AuthController::class,'getLogin'])->name('login');
+Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin');
+Route::get('/register',[AuthController::class,'getRegister'])->name('register');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+
