@@ -67,17 +67,17 @@
 
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item active">
+    <li class="menu-item @if(Request::url() == route('dashboard')) active @endif" id="side-dashboard">
       <a href="{{route('dashboard')}}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
     <!-- Tables -->
-    <li class="menu-item">
-      <a href="tables-basic.html" class="menu-link">
+    <li class="menu-item @if(Request::url() == route('products')) active @endif" id="side-products">
+      <a href="/products" class="menu-link">
         <i class="menu-icon tf-icons bx bx-table"></i>
-        <div data-i18n="Tables">Tables</div>
+        <div data-i18n="Tables">Tables Products</div>
       </a>
     </li>
   </ul>
