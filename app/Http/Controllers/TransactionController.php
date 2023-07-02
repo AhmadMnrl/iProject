@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Custumers;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class CustumersController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CustumersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Custumers $custumers)
+    public function show(Transaction $transaction)
     {
         //
     }
@@ -42,7 +42,7 @@ class CustumersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Custumers $custumers)
+    public function edit(Transaction $transaction)
     {
         //
     }
@@ -50,7 +50,7 @@ class CustumersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Custumers $custumers)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }
@@ -58,7 +58,7 @@ class CustumersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Custumers $custumers)
+    public function destroy(Transaction $transaction)
     {
         //
     }
