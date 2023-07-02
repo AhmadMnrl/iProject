@@ -20,12 +20,14 @@ use App\Http\Controllers\ProductsController;
 //     return view('layouts-admin.master');
 // });
 
-Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-Route::get('/products',[ProductsController::class,'index'])->name('products');
-Route::post('/products/store',[ProductsController::class,'store'])->name('products.store');
+
+Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/products',[ProductsController::class,'index'])->name('products');
+    Route::post('/products/store',[ProductsController::class,'store'])->name('products.store');
 
 
-
+});
 Route::get('/login',[AuthController::class,'getLogin'])->name('login');
 Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin');
 Route::get('/register',[AuthController::class,'getRegister'])->name('register');
