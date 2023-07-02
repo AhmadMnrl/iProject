@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id',50);
-            $table->integer('transaction_date',50);
+            $table->integer('order_id');
+            $table->integer('transaction_date');
             $table->double('amount');
             $table->timestamps();
         });
