@@ -14,7 +14,6 @@
                         <th>No</th>
                         <th>Name Products</th>
                         <th>price</th>
-                        <th>Tanggal Pengajuan</th>
                         <th>Description</th>
                         <th>Stock</th>
                         <th>Actions</th>
@@ -35,7 +34,16 @@
                     @foreach ($products as $no => $value)
                         <tbody class="table-border-bottom-0">
                             <tr>
-                                <td></td>
+                                <td>{{ $no + 1 }}</td>
+                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->price }}</td>
+                                <td>{{ $value->description }}</td>
+                                <td>{{ $value->stock }}</td>
+                                <td>
+                                    <a href="/products/edit/{{ $value->id }}" class="btn btn-success">Edit</a>
+                                    <a href="/products/delete/{{ $value->id }}" class="btn btn-danger">Delete</a>
+                                </td>
+
                             </tr>
                         </tbody>
                     @endforeach
