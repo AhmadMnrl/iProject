@@ -75,9 +75,9 @@
     </li>
     <!-- Tables -->
     <li class="menu-item">
-      <a href="tables-basic.html" class="menu-link">
+      <a href="/products" class="menu-link">
         <i class="menu-icon tf-icons bx bx-table"></i>
-        <div data-i18n="Tables">Tables</div>
+        <div data-i18n="Tables">Tables Products</div>
       </a>
     </li>
   </ul>

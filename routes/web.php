@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,11 @@ use App\Http\Controllers\DashboardController;
 // });
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-Route::get('');
+Route::get('/products',[ProductsController::class,'index'])->name('products');
+
+
+Route::get('/login',[AuthController::class,'getLogin'])->name('login');
+Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin');
+Route::get('/register',[AuthController::class,'getRegister'])->name('register');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+
