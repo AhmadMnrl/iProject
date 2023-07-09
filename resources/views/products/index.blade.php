@@ -41,7 +41,7 @@
                                 <td>{{ $value->stock }}</td>
                                 <td>
                                     <a href="/products/edit/{{ $value->id }}" class="btn btn-success">Edit</a>
-                                    <a href="/products/delete/{{ $value->id }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{route('products.destroy',$value->id)}}" class="btn btn-danger">Delete</a>
                                 </td>
 
                             </tr>
