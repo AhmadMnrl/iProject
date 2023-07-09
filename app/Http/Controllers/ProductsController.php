@@ -17,7 +17,7 @@ class ProductsController extends Controller
      */
    function index() : View 
    {
-        $products = Products::all();
+        $products = Products::latest()->paginate(2);        ;
         return view('products.index',compact('products'));
    }
    function store(Request $request) : RedirectResponse 
@@ -29,7 +29,7 @@ class ProductsController extends Controller
             'stock'     =>'required|'
         ]);
         \App\Models\Products::create($request->all());
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with(['success' => 'Product created successfully.']);;
    }
 
     /**
@@ -45,7 +45,8 @@ class ProductsController extends Controller
      */
     public function edit($id) : View
     {
-
+        $products = Products::find($id);
+        return view('products.edit',compact('products'));
     }
 
     /**
@@ -53,7 +54,15 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id) : RedirectResponse
     {
-        
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'stock' => 'required'
+        ]);
+        $products = Products::findOrFail($id);
+        $products->update($request->all());
+        return redirect()->route('products.index')->with('success','Product updated successfully');
     }
 
     /**
@@ -61,8 +70,8 @@ class ProductsController extends Controller
      */
     public function destroy($id) : RedirectResponse
     {
-        dd(123);
         $products = \App\Models\Products::find($id);
         $products->delete();
+        return redirect()->route('products.index')->with('success','Product deleted successfully');
     }
 }

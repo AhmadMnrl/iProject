@@ -28,18 +28,18 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
       
         Route::group(['prefix'=>'products','as'=>'products.'],function(){
             Route::get('/',[ProductsController::class,'index'])->name('index');
-            Route::get('/edit/{$id}',[ProductsController::class,'edit'])->name('edit');
-            Route::get('/update/{$id}',[ProductsController::class,'update'])->name('update');
+            Route::get('/edit/{id}',[ProductsController::class,'edit'])->name('edit');
+            Route::put('/update/{id}',[ProductsController::class,'update'])->name('update');
             Route::post('/',[ProductsController::class,'store'])->name('store');
-            Route::get('/destroy/{$id}',[ProductsController::class,'destroy'])->name('destroy');
+            Route::get('/destroy/{id}',[ProductsController::class,'destroy'])->name('destroy');
         });
         
         Route::group(['prefix'=>'customers','as'=>'customers.'],function(){
             Route::get('/',[CustomersController::class,'index'])->name('index');
-            Route::get('/edit/{$id}',[CustomersController::class,'edit'])->name('edit');
-            Route::put('/update/{$id}',[CustomersController::class,'update'])->name('update');
+            Route::get('/edit/{id}',[CustomersController::class,'edit'])->name('edit');
+            Route::put('/update/{id}',[CustomersController::class,'update'])->name('update');
             Route::post('/',[CustomersController::class,'store'])->name('store');
-            Route::get('/destroy/{$id}',[CustomersController::class,'destroy'])->name('destroy');
+            Route::get('/destroy/{id}',[CustomersController::class,'destroy'])->name('destroy');
         });
     });
 });

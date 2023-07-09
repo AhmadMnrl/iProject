@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Costumers;
+use App\Models\Customers;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -12,7 +12,8 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customers::latest()->paginate(10);
+        return view('customers.index',compact('customers'));
     }
 
     /**

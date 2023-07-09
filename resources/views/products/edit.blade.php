@@ -1,9 +1,10 @@
-<div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Leave Form</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+@extends('layouts-admin.master', ['title' => 'Products'])
+@section('content')
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Update Products</h5>
+                <small class="text-muted float-end"></small>
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -15,36 +16,40 @@
                     </ul>
                 </div>
             @endif
-            <div class="modal-body">
-                <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <form action="{{ route('products.update', $products->id) }}" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">name</label>
-                            <input type="text" name="name" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" name="name" value="{{ $products->name }}" placeholder=""
+                                autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">Price</label>
-                            <input type="text" name="price" placeholder="" class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
+                            <input type="text" name="price" placeholder="" value="{{ $products->price }}"
+                                autocomplete="off" class="form-control" onkeypress="return hanyaAngka(event)">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">Description</label>
-                            <textarea name="description" id="" cols="30" rows="10" class="form-control" autocomplete="off"></textarea>
+                            <textarea name="description" autocomplete="off" id="" cols="10" rows="10" class="form-control">{{ $products->description }}</textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">stock</label>
-                            <input type="text" name="stock" placeholder="" class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
+                            <input type="text" name="stock" value="{{ $products->stock }}" placeholder=""
+                                class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
+                        <button type="reset" class="btn btn-secondary">
+                            Reset
                         </button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -52,12 +57,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function hanyaAngka(evt) {
-              var charCode = (evt.which) ? evt.which : event.keyCode
-              if (charCode > 31 && (charCode < 48 || charCode > 57))
-        
-                return false;
-              return true;
-            }
-    </script>
+@endsection

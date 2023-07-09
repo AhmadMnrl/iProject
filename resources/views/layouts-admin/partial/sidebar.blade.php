@@ -22,4 +22,10 @@
         <div data-i18n="Tables">Tables Products</div>
       </a>
     </li>
+    <li class="menu-item @if(Request::url() == route('customers.index')) active @endif" id="side-products">
+      <a href="{{route('customers.index')}}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-table"></i>
+        <div data-i18n="Tables">Tables Customers</div>
+      </a>
+    </li>
   </ul>
