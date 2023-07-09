@@ -33,3 +33,16 @@ Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin')
 Route::get('/register',[AuthController::class,'getRegister'])->name('register');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
+// Front 
+Route::get('/', function () {
+    return view('front.home');
+});
+Route::get('/produk', function () {
+    return view('front.produk');
+});
+Route::get('/produk-detail', function () {
+    return view('front.produk-detail');
+});
+Route::get('/cart', function () {
+    return view('front.cart');
+});
