@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CustomersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +23,25 @@ use App\Http\Controllers\ProductsController;
 
 
 Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::get('/products',[ProductsController::class,'index'])->name('products');
-    Route::post('/products/store',[ProductsController::class,'store'])->name('products.store');
-
-
+    Route::group(['prefix'=>'admin'],function(){
+      Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+      
+        Route::group(['prefix'=>'products','as'=>'products.'],function(){
+            Route::get('/',[ProductsController::class,'index'])->name('index');
+            Route::get('/edit/{$id}',[ProductsController::class,'edit'])->name('edit');
+            Route::get('/update/{$id}',[ProductsController::class,'update'])->name('update');
+            Route::post('/',[ProductsController::class,'store'])->name('store');
+            Route::get('/destroy/{$id}',[ProductsController::class,'destroy'])->name('destroy');
+        });
+        
+        Route::group(['prefix'=>'customers','as'=>'customers.'],function(){
+            Route::get('/',[CustomersController::class,'index'])->name('index');
+            Route::get('/edit/{$id}',[CustomersController::class,'edit'])->name('edit');
+            Route::put('/update/{$id}',[CustomersController::class,'update'])->name('update');
+            Route::post('/',[CustomersController::class,'store'])->name('store');
+            Route::get('/destroy/{$id}',[CustomersController::class,'destroy'])->name('destroy');
+        });
+    });
 });
 Route::get('/login',[AuthController::class,'getLogin'])->name('login');
 Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin');

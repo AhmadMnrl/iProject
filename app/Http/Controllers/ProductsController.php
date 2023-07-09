@@ -29,7 +29,7 @@ class ProductsController extends Controller
             'stock'     =>'required|'
         ]);
         \App\Models\Products::create($request->all());
-        return redirect()->route('products');
+        return redirect()->route('products.index');
    }
 
     /**
@@ -59,8 +59,10 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy($id) : RedirectResponse
     {
-        //
+        dd(123);
+        $products = \App\Models\Products::find($id);
+        $products->delete();
     }
 }

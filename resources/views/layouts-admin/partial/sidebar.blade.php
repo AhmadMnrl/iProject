@@ -16,8 +16,8 @@
       </a>
     </li>
     <!-- Tables -->
-    <li class="menu-item @if(Request::url() == route('products')) active @endif" id="side-products">
-      <a href="/products" class="menu-link">
+    <li class="menu-item @if(Request::url() == route('products.index')) active @endif" id="side-products">
+      <a href="{{route('products.index')}}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-table"></i>
         <div data-i18n="Tables">Tables Products</div>
       </a>
