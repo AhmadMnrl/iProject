@@ -1,9 +1,9 @@
-@extends('layouts-admin.master', ['title' => 'Products'])
+@extends('layouts-admin.master', ['title' => 'Orders'])
 @section('content')
     <div class="card">
         <div class="d-flex justify-content-end pt-2" style="padding-right: 25px">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#smallModal">
-                <i class='bx bxs-plus-circle'></i> Add Products
+                <i class='bx bxs-plus-circle'></i> Add Orders
             </button>
         </div>
         <div class="d-flex justify-content-end pt-2">
@@ -20,14 +20,13 @@
                 <thead style="">
                     <tr style="color: #f1faee;">
                         <th>No</th>
-                        <th>Name Products</th>
-                        <th>price</th>
-                        <th>Description</th>
-                        <th>Stock</th>
+                        <th>Costumers Name</th>
+                        <th>Orders Date</th>
+                        <th>Total Amount</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <?php $countData = count($products); ?>
+                <?php $countData = count($orders); ?>
                 @if ($countData < 1)
                     <tbody class="table-border-bottom">
                         <tr>
@@ -39,17 +38,16 @@
                         </tr>
                     </tbody>
                 @else
-                    @foreach ($products as $no => $value)
+                    @foreach ($orders as $no => $value)
                         <tbody class="table-border-bottom-0">
                             <tr>
                                 <td>{{ $no + 1 }}</td>
-                                <td>{{ $value->name }}</td>
-                                <td>{{ $value->price }}</td>
-                                <td>{{ $value->description }}</td>
-                                <td>{{ $value->stock }}</td>
+                                <td>{{ $value->customers->name }}</td>
+                                <td>{{ $value->order_date }}</td>
+                                <td>{{ $value->total_amount }}</td>
                                 <td>
-                                    <a href="{{ route('products.edit', $value->id) }}" class="btn btn-success">Edit</a>
-                                    <a href="{{ route('products.destroy', $value->id) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('orders.edit', $value->id) }}" class="btn btn-success">Edit</a>
+                                    <a href="{{ route('orders.destroy', $value->id) }}" class="btn btn-danger">Delete</a>
                                 </td>
 
                             </tr>
@@ -71,6 +69,7 @@
                 </ul>
               </nav>
         </div>
-        @include('products.create')
+        
+        @include('orders.create')
     </div>
 @endsection

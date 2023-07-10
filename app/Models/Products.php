@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Products;
+use App\Models\OrderItems;
 
 class Products extends Model
 {
@@ -11,4 +13,8 @@ class Products extends Model
     protected $table = 'products';
     protected $fillable = ['name','price','description','stock'];
     protected $primaryKey = 'id';
+
+    public function products() { 
+        return $this->HasMany(Products::class); 
+  }
 }
