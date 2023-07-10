@@ -16,38 +16,37 @@
                 </div>
             @endif
             <div class="modal-body">
-                <form action="{{route('customers.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('order_items.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">User ID</label>
-                            <input type="text" name="user_id" placeholder="" autocomplete="off" class="form-control" onkeypress="return hanyaAngka(event)">
+                            <label for="order_id" class="form-label">Orders ID</label>
+                            <select required id="order_id" name="order_id" autocomplete="off" class="form-control">
+                                <option value="">Choose Order ID</option>
+                                @foreach ($orders as $k)
+                                    <option value="{{ $k->id }}">{{ $k->id }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="name" class="form-label">Customers Name</label>
-                            <input type="text" name="name" placeholder="insert your name" class="form-control" autocomplete="off">
+                            <label for="product_id" class="form-label">Products</label>
+                            <select required id="product_id" name="product_id" autocomplete="off" class="form-control">
+                                <option value="">Choose Product</option>
+                                @foreach ($products as $d)
+                                    <option value="{{ $d->id }}">{{ $d->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" name="email" placeholder="insert your email" class="form-control" autocomplete="off">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="text" name="quantity" placeholder="" class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <textarea name="address" id="" cols="30" rows="10" class="form-control" autocomplete="off"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Phone</label>
-                            <input type="text" name="phone" placeholder="your phone numbers" class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
-                        </div>
-                    </div>
+        
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
@@ -56,7 +55,6 @@
                     </div>
                 </form>
             </div>
-            
         </div>
     </div>
     <script>

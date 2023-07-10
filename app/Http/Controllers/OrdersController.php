@@ -4,21 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Customers;
 
 class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    function index() : View
     {
-        //
+        $orders = Orders::latest()->paginate(10);
+        $customers = Customers::all();
+        return view('orders.index',compact('orders', 'customers'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    function create()
     {
         //
     }
@@ -26,9 +31,16 @@ class OrdersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    function store(Request $request) : RedirectResponse
     {
-        //
+        $this->validate($request, [
+            'customers_id'     => 'required|',
+            'order_date'     => 'required|',
+            'total_amount'   => 'required|'
+        ]);
+        
+        \App\Models\Orders::create($request->all());
+        return redirect()->route('orders.index')->with(['success' => 'Orders created successfully.']);
     }
 
     /**
@@ -42,24 +54,35 @@ class OrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Orders $orders)
+    public function edit($id) : View
     {
-        //
+        $orders = Orders::find($id);
+        return view('orders.edit',compact('orders'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Orders $orders)
+    public function update(Request $request, $id) : RedirectResponse
     {
-        //
+        $request->validate([
+            'customers_id'     => 'required',
+            'order_date'     => 'required',
+            'total_amount'   => 'required'
+        ]);
+        $orders = Orders::findOrFail($id);
+        $orders->update($request->all());
+        return redirect()->route('orders.index')->with('success','orders updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Orders $orders)
+    public function destroy($id) : RedirectResponse
     {
-        //
+        $orders = \App\Models\Orders::find($id);
+        $orders->delete();
+        return redirect()->route('orders.index')->with('success','Product deleted successfully');
     }
 }

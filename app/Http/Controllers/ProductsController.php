@@ -17,9 +17,10 @@ class ProductsController extends Controller
      */
    function index() : View 
    {
-        $products = Products::latest()->paginate(2);        ;
+        $products = Products::latest()->paginate(10);
         return view('products.index',compact('products'));
    }
+
    function store(Request $request) : RedirectResponse 
    {
         $this->validate($request, [

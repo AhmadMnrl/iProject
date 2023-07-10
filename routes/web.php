@@ -5,6 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\OrderItemsController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +41,34 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
             Route::get('/',[CustomersController::class,'index'])->name('index');
             Route::get('/edit/{id}',[CustomersController::class,'edit'])->name('edit');
             Route::put('/update/{id}',[CustomersController::class,'update'])->name('update');
+            Route::get('/create', [OrdersController::class,'create'])->name('create');
             Route::post('/',[CustomersController::class,'store'])->name('store');
             Route::get('/destroy/{id}',[CustomersController::class,'destroy'])->name('destroy');
+        });
+
+        Route::group(['prefix'=>'orders','as'=>'orders.'],function(){
+            Route::get('/',[OrdersController::class,'index'])->name('index');
+            Route::get('/edit/{id}',[OrdersController::class,'edit'])->name('edit');
+            Route::put('/update/{id}',[OrdersController::class,'update'])->name('update');
+            Route::post('/',[OrdersController::class,'store'])->name('store');
+            Route::get('/destroy/{id}',[OrdersController::class,'destroy'])->name('destroy');
+        });
+
+        Route::group(['prefix'=>'order_items','as'=>'order_items.'],function(){
+            Route::get('/',[OrderItemsController::class,'index'])->name('index');
+            Route::get('/edit/{id}',[OrderItemsController::class,'edit'])->name('edit');
+            Route::put('/update/{id}',[OrderItemsController::class,'update'])->name('update');
+            Route::post('/',[OrderItemsController::class,'store'])->name('store');
+            Route::get('/destroy/{id}',[OrderItemsController::class,'destroy'])->name('destroy');
+
+            
+        });
+        Route::group(['prefix'=>'transactions','as'=>'transactions.'],function(){
+            Route::get('/',[TransactionController::class,'index'])->name('index');
+            Route::get('/edit/{id}',[TransactionController::class,'edit'])->name('edit');
+            Route::put('/update/{id}',[TransactionController::class,'update'])->name('update');
+            Route::post('/',[TransactionController::class,'store'])->name('store');
+            Route::get('/destroy/{id}',[TransactionController::class,'destroy'])->name('destroy');
         });
     });
 });
