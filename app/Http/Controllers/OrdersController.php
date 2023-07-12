@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Customers;
+use App\Models\Products;
 use App\Models\OrderItems;
 
 class OrdersController extends Controller
@@ -19,7 +20,8 @@ class OrdersController extends Controller
         $orders = Orders::latest()->paginate(10);
         $customers = Customers::all();
         $orderItem = OrderItems::all();
-        return view('orders.index',compact('orders', 'customers','orderItem'));
+        $products = Products::all();
+        return view('orders.index',compact('orders', 'customers','orderItem', 'products'));
     }
 
     /**
@@ -37,20 +39,34 @@ class OrdersController extends Controller
     {
         $this->validate($request, [
             'customers_id'     => 'required|',
-            'order_date'     => 'required|',
             'total_amount'   => 'required|'
         ]);
+        $customersId = $request->customers_id;
+        $customer = Customers::find($customersId);
+        $productId = $request->product_id;
+        $products = Products::find($productId);
+
+        $orderItem = new OrderItems;
+        $orderItem->product_id = $products->id;
+        $orderItem->quantity = $request->quantity;
+        $orderItem->save();
+
         $order = new Orders;
-        $order->customers_id = $customers->id;
-        $order->order_date = $request->order_date;
+        $order->customers_id = $customer->id;
+        $order->product_id = $products->id;
+        $order->order_date = date("Y/m/d");
+        $order->order_item_id = $orderItem->id;
         $order->total_amount = $request->total_amount;
         $order->save();
 
         $orderItem = new OrderItems;
         $orderItem->order_id = $order->id;
-        $orderItem->product_id = $products->id;
-        $orderItem->quantity = $request->quantity;
         $orderItem->save();
+
+
+
+
+        
 
         return redirect()->route('orders.index')->with(['success' => 'Orders created successfully.']);
     }

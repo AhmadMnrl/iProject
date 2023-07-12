@@ -12,17 +12,22 @@ class Orders extends Model
 {
     use HasFactory;
     protected $table = 'orders';
-    protected $fillable = ['customers_id','order_date','total_amount'];
+    protected $fillable = ['customers_id','product_id','order_item_id','order_date','total_amount'];
     protected $primaryKey = 'id';
 
     public function customers() { 
-        return $this->BelongsTo(Customers::class); 
+        return $this->BelongsTo(Customers::class,'customers_id'); 
   }
 
   public function transaction() { 
     return $this->HasMany(Transactions::class); 
 }
     public function orderItem() { 
-        return $this->belongsTo(orderItems::class); 
+        return $this->belongsTo(OrderItems::class,'order_item_id'); 
     }
+    public function products()
+{
+    return $this->belongsTo(Products::class, 'product_id');
+}
+    
 }
