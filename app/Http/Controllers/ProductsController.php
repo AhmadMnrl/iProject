@@ -20,6 +20,12 @@ class ProductsController extends Controller
         $products = Products::latest()->paginate(10);
         return view('products.index',compact('products'));
    }
+   function produk()
+   {
+        $products = Products::all();
+        return view('front.produk',compact('products'));
+   }
+
 
    function store(Request $request) : RedirectResponse 
    {

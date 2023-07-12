@@ -82,9 +82,7 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 Route::get('/', function () {
     return view('front.home');
 });
-Route::get('/produk', function () {
-    return view('front.produk');
-});
+Route::get('/produk',[ProductsController::class,'produk']);
 Route::get('/produk-detail', function () {
     return view('front.produk-detail');
 });
