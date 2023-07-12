@@ -22,13 +22,6 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="user_id" class="form-label">User ID</label>
-                            <input type="text" name="user_id" value="{{ $customers->user_id }}" placeholder=""
-                                autocomplete="off" class="form-control" onkeypress="return hanyaAngka(event)">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
                             <label for="name" class="form-label">Customers Name</label>
                             <input type="text" name="name" value="{{ $customers->name }}" placeholder=""
                                 autocomplete="off" class="form-control">
@@ -43,8 +36,9 @@
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <textarea name="address" autocomplete="off" id="" cols="10" rows="10" class="form-control">{{ $customers->address }}</textarea>
+                            <label for="address" class="form-label">Full Address</label>
+                            <textarea name="address" id="address" cols="30" rows="10" class="form-control"
+                                autocomplete="off">{{$customers->address}}</textarea>
                         </div>
                     </div>
                     <div class="row">

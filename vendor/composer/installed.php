@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8abc04d5456485327c08f359555daeda28d614fb',
+        'reference' => '57dafc67195e5af23c46c840c0d8067e7bb5e71a',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -373,7 +373,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8abc04d5456485327c08f359555daeda28d614fb',
+            'reference' => '57dafc67195e5af23c46c840c0d8067e7bb5e71a',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -421,6 +421,15 @@
             'reference' => '04a2d3bd0d650c0764f70bf49d1ee39393e4eb10',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/tinker',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laravolt/indonesia' => array(
+            'pretty_version' => 'v0.34',
+            'version' => '0.34.0.0',
+            'reference' => 'dfb584207f277e38c7706412d7414c8753dc78d5',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravolt/indonesia',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -724,8 +733,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
