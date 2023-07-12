@@ -14,6 +14,10 @@ class OrderItems extends Model
     protected $primaryKey = 'id';
 
     public function products() { 
-        return $this->HasMany(Products::class); 
+        return $this->HasMany(Products::class,'product_id'); 
+    }
+    public function order()
+    {
+        return $this->hasOne(Customers::class,'order_id');
     }
 }
