@@ -14,7 +14,7 @@ class Products extends Model
     protected $fillable = ['name','price','description','stock'];
     protected $primaryKey = 'id';
 
-    public function products() { 
-      return $this->BelongsTo(Products::class); 
-      }
+    public function orders() { 
+      return $this->HasMany(Orders::class,'order_id'); 
+  }
 }

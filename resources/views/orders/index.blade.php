@@ -21,7 +21,9 @@
                     <tr style="color: #f1faee;">
                         <th>No</th>
                         <th>Costumers Name</th>
-                        <th>Orders Date</th>
+                        <th>Products</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
                         <th>Total Amount</th>
                         <th>Actions</th>
                     </tr>
@@ -43,7 +45,9 @@
                             <tr>
                                 <td>{{ $no + 1 }}</td>
                                 <td>{{ $value->customers->name }}</td>
-                                <td>{{ $value->order_date }}</td>
+                                <td>{{ $value->products->name }}</td>
+                                <td>{{ $value->products->price }}</td>
+                                <td>{{ $value->orderItem->quantity }}</td>
                                 <td>{{ $value->total_amount }}</td>
                                 <td>
                                     <a href="{{ route('orders.edit', $value->id) }}" class="btn btn-success">Edit</a>

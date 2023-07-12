@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
             Route::put('/update/{id}',[OrdersController::class,'update'])->name('update');
             Route::post('/',[OrdersController::class,'store'])->name('store');
             Route::get('/destroy/{id}',[OrdersController::class,'destroy'])->name('destroy');
+
         });
 
         Route::group(['prefix'=>'order_items','as'=>'order_items.'],function(){
