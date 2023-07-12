@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customers;
+use App\Models\User;
 use App\Models\Orders;
 use Illuminate\Http\Request;
 //Return type  redirectView
 use Illuminate\View\View;
+use Hash;
+use Str;
 use Illuminate\Http\RedirectResponse;
 
 class CustomersController extends Controller
@@ -26,13 +29,23 @@ class CustomersController extends Controller
     function store(Request $request) : RedirectResponse
     {
         $this->validate($request, [
-            'user_id'     => 'required|',
             'name'     => 'required|',
             'email'   => 'required|',
             'address'     => 'required|',
             'phone'     =>'required|'
         ]);
-        \App\Models\Customers::create($request->all());
+        // insert ke table user
+        $user = new \App\Models\User;
+        $user->role = 'customer';
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);;
+        $user->remember_token = Str::random(60);
+        $user->save();
+
+        // insert ke table customers
+        $request->request->add(['user_id' => $user->id ]);
+        $customers = \App\Models\Customers::create($request->all());
         return redirect()->route('customers.index')->with(['success' => 'Customers created successfully.']);
     }
 

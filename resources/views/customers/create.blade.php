@@ -16,24 +16,20 @@
                 </div>
             @endif
             <div class="modal-body">
-                <form action="{{route('customers.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('customers.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">User ID</label>
-                            <input type="text" name="user_id" placeholder="" autocomplete="off" class="form-control" onkeypress="return hanyaAngka(event)">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
                             <label for="name" class="form-label">Customers Name</label>
-                            <input type="text" name="name" placeholder="insert your name" class="form-control" autocomplete="off">
+                            <input type="text" name="name" placeholder="insert your name" class="form-control"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" name="email" placeholder="insert your email" class="form-control" autocomplete="off">
+                            <input type="text" name="email" placeholder="insert your email" class="form-control"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
@@ -45,7 +41,16 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameBasic" class="form-label">Phone</label>
-                            <input type="text" name="phone" placeholder="your phone numbers" class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
+                            <input type="text" name="phone" placeholder="your phone numbers" class="form-control"
+                                autocomplete="off" onkeypress="return hanyaAngka(event)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameBasic" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-control" name="password"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -56,15 +61,15 @@
                     </div>
                 </form>
             </div>
-            
+
         </div>
     </div>
     <script>
         function hanyaAngka(evt) {
-              var charCode = (evt.which) ? evt.which : event.keyCode
-              if (charCode > 31 && (charCode < 48 || charCode > 57))
-        
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
                 return false;
-              return true;
-            }
+            return true;
+        }
     </script>

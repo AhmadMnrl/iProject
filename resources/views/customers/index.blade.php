@@ -20,7 +20,6 @@
                 <thead style="">
                     <tr style="color: #f1faee;">
                         <th>No</th>
-                        <th>User ID</th>
                         <th>Customers Name</th>
                         <th>Email</th>
                         <th>Address</th>
@@ -44,7 +43,6 @@
                         <tbody class="table-border-bottom-0">
                             <tr>
                                 <td>{{ $no + 1 }}</td>
-                                <td>{{ $value->user_id }}</td>
                                 <td>{{ $value->name }}</td>
                                 <td>{{ $value->email }}</td>
                                 <td>{{ $value->address }}</td>

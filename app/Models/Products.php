@@ -15,6 +15,6 @@ class Products extends Model
     protected $primaryKey = 'id';
 
     public function products() { 
-        return $this->HasMany(Products::class); 
-  }
+      return $this->BelongsTo(Products::class); 
+      }
 }
