@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Customers;
+use App\Models\OrderItems;
 
 class OrdersController extends Controller
 {
@@ -17,7 +18,8 @@ class OrdersController extends Controller
     {
         $orders = Orders::latest()->paginate(10);
         $customers = Customers::all();
-        return view('orders.index',compact('orders', 'customers'));
+        $orderItem = OrderItems::all();
+        return view('orders.index',compact('orders', 'customers','orderItem'));
     }
 
     /**
@@ -38,8 +40,18 @@ class OrdersController extends Controller
             'order_date'     => 'required|',
             'total_amount'   => 'required|'
         ]);
-        
-        \App\Models\Orders::create($request->all());
+        $order = new Orders;
+        $order->customers_id = $customers->id;
+        $order->order_date = $request->order_date;
+        $order->total_amount = $request->total_amount;
+        $order->save();
+
+        $orderItem = new OrderItems;
+        $orderItem->order_id = $order->id;
+        $orderItem->product_id = $products->id;
+        $orderItem->quantity = $request->quantity;
+        $orderItem->save();
+
         return redirect()->route('orders.index')->with(['success' => 'Orders created successfully.']);
     }
 
