@@ -20,6 +20,7 @@
                 <thead style="">
                     <tr style="color: #f1faee;">
                         <th>No</th>
+                        <th>Gambar</th>
                         <th>Name Products</th>
                         <th>price</th>
                         <th>Description</th>
@@ -43,6 +44,9 @@
                         <tbody class="table-border-bottom-0">
                             <tr>
                                 <td>{{ $no + 1 }}</td>
+                                <td class="text-center">
+                                    <img src="{{ asset('/storage/product/'.$value->gambar) }}" class="rounded" style="width: 150px">
+                                </td>
                                 <td>{{ $value->name }}</td>
                                 <td>{{ $value->price }}</td>
                                 <td>{{ $value->description }}</td>

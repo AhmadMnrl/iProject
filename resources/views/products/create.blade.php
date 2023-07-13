@@ -20,6 +20,12 @@
                     @csrf
                     <div class="row">
                         <div class="col mb-3">
+                            <label for="nameBasic" class="form-label">Gambar product</label>
+                            <input type="file" name="gambar" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
                             <label for="nameBasic" class="form-label">name</label>
                             <input type="text" name="name" placeholder="" autocomplete="off" class="form-control">
                         </div>

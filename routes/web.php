@@ -8,6 +8,8 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +25,19 @@ use App\Http\Controllers\TransactionController;
 // Route::get('/', function () {
 //     return view('layouts-admin.master');
 // });
+Route::group(['middleware' => ['auth', 'checkRole:customer']],function(){
+    Route::group(['prefix'=>'user'],function(){
+        Route::get('home',[HomeController::class,'index'])->name('home');
+        Route::get('orders/{id}',[HomeController::class,'ordersId'])->name('ordersId');
+        Route::post('orders/{id}',[HomeController::class,'ordersPost'])->name('ordersPost');
 
+    });
+});
 
 Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
+    
     Route::group(['prefix'=>'admin'],function(){
       Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-      
         Route::group(['prefix'=>'products','as'=>'products.'],function(){
             Route::get('/',[ProductsController::class,'index'])->name('index');
             Route::get('/edit/{id}',[ProductsController::class,'edit'])->name('edit');
@@ -76,16 +85,10 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
 Route::get('/login',[AuthController::class,'getLogin'])->name('login');
 Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin');
 Route::get('/register',[AuthController::class,'getRegister'])->name('register');
-Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+Route::get('/logout',[AuthController::class,'logout']);
 
 // Front 
-Route::get('/', function () {
-    return view('front.home');
-});
-Route::get('/produk',[ProductsController::class,'produk']);
-Route::get('/produk-detail', function () {
-    return view('front.produk-detail');
-});
+Route::get('/',[HomeController::class,'waiting']);
 Route::get('/cart', function () {
     return view('front.cart');
 });
