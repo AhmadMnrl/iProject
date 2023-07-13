@@ -31,11 +31,20 @@ class ProductsController extends Controller
    {
         $this->validate($request, [
             'name'     => 'required|',
+            'gambar'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'price'     => 'required|',
             'description'   => 'required|',
             'stock'     =>'required|'
         ]);
-        \App\Models\Products::create($request->all());
+        $gambar = $request->file('gambar');
+        $gambar->storeAs('public/product', $gambar->hashName());
+        $products = new Products;
+        $products->name = $request->name;
+        $products->gambar = $gambar->hashName();
+        $products->price = $request->price;
+        $products->description = $request->description;
+        $products->stock = $request->stock;
+        $products->save();
         return redirect()->route('products.index')->with(['success' => 'Product created successfully.']);;
    }
 

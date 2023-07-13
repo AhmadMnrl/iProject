@@ -16,6 +16,8 @@
     <link rel="stylesheet"
         href="{{ asset('front/assets/css/A.bootstrap.min.css%2bLineIcons.3.0.css%2btiny-slider.css%2bglightbox.min.css%2cMcc.OzR7N5fb_Y.css.pagespeed.cf.svKjl5Nf5n.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/assets/css/A.main.css.pagespeed.cf.wZnWV-GMUP.css') }}" />
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    @include('sweetalert::alert')
     <script data-pagespeed-no-defer>
         (function() {
             function f(a, b, d) {
