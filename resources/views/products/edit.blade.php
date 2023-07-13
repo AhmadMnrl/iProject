@@ -20,9 +20,17 @@
                 <form action="{{ route('products.update', $products->id) }}" method="post">
                     @csrf
                     @method('PUT')
+                    
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">name</label>
+                            <label for="gambar" class="form-label">Image</label>
+                            <input type="file" name="gambar" value="{{ $products->gambar }}" placeholder="" 
+                                autocomplete="off" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameBasic" class="form-label">Name</label>
                             <input type="text" name="name" value="{{ $products->name }}" placeholder=""
                                 autocomplete="off" class="form-control">
                         </div>

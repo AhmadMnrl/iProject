@@ -52,6 +52,10 @@ class AuthController extends Controller
     {
         return view('auths.register');
     }
+    public function postRegister(Request $request)
+    {
+      
+    }
     public function logout()
     {
             // Lakukan logout

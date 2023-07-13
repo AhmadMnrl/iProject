@@ -45,7 +45,8 @@
                             <tr>
                                 <td>{{ $no + 1 }}</td>
                                 <td class="text-center">
-                                    <img src="{{ asset('/storage/product/'.$value->gambar) }}" class="rounded" style="width: 150px">
+                                    <img src="{{ asset('/storage/product/' . $value->gambar) }}" class="rounded"
+                                        style="width: 150px">
                                 </td>
                                 <td>{{ $value->name }}</td>
                                 <td>{{ $value->price }}</td>
@@ -61,20 +62,43 @@
                     @endforeach
                 @endif
             </table>
+
+            @php
+                $pageNumber = $products->currentPage();
+            @endphp
+            @if ($products->onFirstPage())
+                @php
+                    $previousPageUrl = null;
+                @endphp
+            @else
+                @php
+                    $previousPageUrl = $products->previousPageUrl();
+                @endphp
+            @endif
+            @if ($products->hasMorePages())
+                @php
+                    $nextPageUrl = $products->nextPageUrl();
+                @endphp
+            @else
+                @php
+                    $nextPageUrl = null;
+                @endphp
+            @endif
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0);">1</a>
-                  </li>
-                  <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                  </li>
+                    <li class="page-item prev">
+                        <a class="page-link" href="{{ $previousPageUrl }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="{{ $products->url($pageNumber) }}">{{ $pageNumber }}</a>
+                    </li>
+                    <li class="page-item next">
+                        <a class="page-link" href="{{ $nextPageUrl }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    </li>
                 </ul>
-              </nav>
+            </nav>
         </div>
         @include('products.create')
     </div>
+
 @endsection

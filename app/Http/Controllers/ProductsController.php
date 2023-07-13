@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 //return type redirectResponse
 use Illuminate\Http\RedirectResponse;
+use Storage;
 
 
 class ProductsController extends Controller
@@ -15,10 +16,11 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-   function index() : View 
+   function index(Request $request) : View 
    {
-        $products = Products::latest()->paginate(10);
-        return view('products.index',compact('products'));
+        $pageNumber = $request->query('page', 1); // Mengambil nomor halaman dari query string
+        $products = Products::paginate(10, ['*'], 'page', $pageNumber);
+        return view('products.index',compact('products','pageNumber'));
    }
    function produk()
    {
@@ -74,10 +76,42 @@ class ProductsController extends Controller
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
+            'gambar' => 'required',
             'stock' => 'required'
         ]);
+
+        //get products by ID
         $products = Products::findOrFail($id);
-        $products->update($request->all());
+
+        //check if gambar is uploaded
+        if ($request->hasFile('gambar')) {
+
+            //upload new gambar
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/product', $gambar->hashName());
+
+            //delete old gambar
+            Storage::delete('public/product/'.$products->gambar);
+
+            //update products with new gambar
+            $products->update([
+                'name'     => $request->name,
+                'price'     => $request->price,
+                'description'     => $request->description,
+                'gambar'     => $gambar->hashName(),
+                'stock'     => $request->stock
+            ]);
+
+        } else {
+
+            //update products without gambar
+            $products->update([
+                'name'     => $request->name,
+                'price'     => $request->price,
+                'description'     => $request->description,
+                'stock'     => $request->stock
+            ]);
+        }
         return redirect()->route('products.index')->with('success','Product updated successfully');
     }
 
@@ -87,6 +121,7 @@ class ProductsController extends Controller
     public function destroy($id) : RedirectResponse
     {
         $products = \App\Models\Products::find($id);
+        Storage::delete('public/product/'. $products->gambar);
         $products->delete();
         return redirect()->route('products.index')->with('success','Product deleted successfully');
     }
