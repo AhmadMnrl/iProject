@@ -189,9 +189,20 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function profileUpdate(Request $request, $id) : RedirectResponse
     {
-        //
+        $request->validate([
+            'name'     => 'required',
+            'email'   => 'required',
+            'address'     => 'required',
+            'phone'     =>'required'
+        ]);
+        $customers = Customers::findOrFail($id);
+        $customers->update($request->all());
+        Alert::success('Success', 'Successfully Updated Profile');
+        return redirect()->back();
+        
+        // return redirect()->route('home')->with('success','Customers updated successfully');
     }
 
     /**
