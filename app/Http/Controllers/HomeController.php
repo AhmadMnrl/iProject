@@ -23,12 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Products::all();
+        $products = \App\Models\Products::orderBy('id', 'asc')->paginate(8);
         return view('front.home',compact('products'));
     }
     public function waiting()
     {
-        $products = Products::all();
+        $products = \App\Models\Products::orderBy('id', 'asc')->paginate(8);
         return view('front.home',compact('products'));
     }
     public function ordersId($id)
@@ -119,7 +119,7 @@ class HomeController extends Controller
         
         // Cek apakah alamat telah diisi
         if (!$userAddress || !$userAddress->address) {
-            return redirect()->route('profile')->with('message', 'Lengkapi alamat Anda sebelum melanjutkan ke pembayaran.');
+            return redirect()->route('profile',$userAddress->id)->with('message', 'Lengkapi alamat Anda sebelum melanjutkan ke pembayaran.');
         }
                 $transaction = new Transaction;
                 $transaction->order_id = $request->order_id;
@@ -142,11 +142,29 @@ class HomeController extends Controller
     }
     function checkout() : View {
         $userId = Auth::user()->id;
-        $customer = Customers::where('user_id', $userId)->first();
-        $checkedOutOrders = Orders::where('customers_id', $customer->id)
-        ->where('status', 1)
-        ->get();
-        return view('front.checkout');
+
+$checkedOutOrders = DB::table('orders')
+    ->join('customers', 'orders.customers_id', '=', 'customers.id')
+    ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+    ->join('products', 'order_items.product_id', '=', 'products.id')
+    ->where('customers.user_id', $userId)
+    ->where('orders.status', 1)
+    ->select(
+        'customers.name as name',
+        'products.gambar',
+        'products.name as name',
+        'products.price', // Fix the column name here
+        'order_items.quantity',
+        'order_items.total_amount_items',
+        'orders.total_amount',
+        'orders.code',
+
+    )
+    ->get();
+
+return view('front.checkout', compact('checkedOutOrders'));
+
+        
     }
     function profile($id) : View {
         $customerId = Auth::user()->id;
