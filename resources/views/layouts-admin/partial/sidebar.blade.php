@@ -34,12 +34,6 @@
             <div data-i18n="Tables">Tables Orders</div>
         </a>
     </li>
-    <li class="menu-item @if (Request::url() == route('order_items.index')) active @endif" id="side-order_items">
-        <a href="{{ route('order_items.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bxs-cart"></i>
-            <div data-i18n="Tables">Tables Orders Items</div>
-        </a>
-    </li>
     <li class="menu-item @if (Request::url() == route('transactions.index')) active @endif" id="side-transactions">
       <a href="{{ route('transactions.index') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bxs-wallet"></i>

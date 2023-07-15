@@ -17,54 +17,24 @@
                 </div>
             @endif
             <div class="card-body">
-                <form action="{{ route('transactions.update', $transactions->id) }}" method="post">
+                <form action="{{ route('transactions.update', $order->id) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="order_id" class="form-label">Order ID</label>
-                            {{-- <input type="text" name="order_id" value="{{ $orders->name }}" placeholder=""
-                                autocomplete="off" class="form-control"> --}}
-
-                             <select required id="order_id" name="order_id" autocomplete="off" class="form-control">
-                                <option value="">Choose ID Order</option>
-                                @foreach ($orders as $k)
-                                    <option value="{{ $k->id }}">{{ $k->id }}</option>
-                                @endforeach
+                            <label for="order_status" class="form-label">Status</label>
+                            <select name="order_status" class="form-control">
+                                <option value="1" @if ($order->status == 1) selected @endif>Not Paid</option>
+                                <option value="2" @if ($order->status == 2) selected @endif>Paid</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="transaction_date" class="form-label">Transaction Date</label>
-                            <input type="date" name="transaction_date" placeholder="" value="{{ $transactions->transaction_date }}"
-                                autocomplete="off" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="amount" class="form-label">Amount</label>
-                            <input type="text" name="amount" value="{{ $transactions->amount }}" placeholder=""
-                                class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
-                        </div>
-                    </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary">
-                            Reset
-                        </button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script>
-        function hanyaAngka(evt) {
-              var charCode = (evt.which) ? evt.which : event.keyCode
-              if (charCode > 31 && (charCode < 48 || charCode > 57))
-        
-                return false;
-              return true;
-            }
-    </script>
 @endsection

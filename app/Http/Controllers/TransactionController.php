@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Orders;
+use DB;
 
 
 class TransactionController extends Controller
@@ -16,9 +17,15 @@ class TransactionController extends Controller
      */
     function index() : View
     {
-        $transactions = Transaction::latest()->paginate(10);
+        $transactions = DB::table('transactions')
+        ->select('transactions.*', 'orders.status', 'customers.name as customer_name')
+        ->leftJoin('orders', 'transactions.order_id', '=', 'orders.id')
+        ->leftJoin('customers', 'orders.customers_id', '=', 'customers.id')
+        ->whereIn('orders.status', [1, 2])
+        ->latest()
+        ->paginate(10);
         $orders = Orders::all();
-        return view('transactions.index',compact('transactions', 'orders'));
+        return view('transactions.index', compact('transactions','orders'));
     }
 
     /**
@@ -57,8 +64,9 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $transactions = Transaction::find($id);
-        return view('transactions.edit',compact('transactions'));
+        $order = Orders::where('status', 1)->find($id);
+        return view('transactions.edit', compact('order'));
+
     }
 
     /**
@@ -66,15 +74,12 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id) : RedirectResponse
     {
-        $request->validate([
-            'order_id'     => 'required',
-            'transaction_date'     => 'required',
-            'amount'   => 'required'
-        ]);
-        $transactions = Transaction::findOrFail($id);
-        $transactions->update($request->all());
-        return redirect()->route('transactions.index')->with('success','Transactions updated successfully');
+        $transaction = Orders::findOrFail($id);
+        $transaction->status = 2;
+        $transaction->save();
+        return redirect()->route('transactions.index')->with('success', 'Transaction updated successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.
