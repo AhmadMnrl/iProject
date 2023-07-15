@@ -6,9 +6,7 @@
             <div class="row">
                 <div class="col-lg-8 col-12 custom-padding-right">
                     <div class="slider-head">
-
                         <div class="hero-slider">
-
                             <div class="single-slider"
                                 style="background-image:url({{ asset('front/assets/images/hero/xslider-bg1.jpg.pagespeed.ic.QB-k7UuPjB.jpg') }})">
                                 <div class="content">
@@ -23,8 +21,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="single-slider"
                                 style="background-image:url({{ asset('front/assets/images/hero/xslider-bg2.jpg.pagespeed.ic.nEcfNovovG.jpg') }})">
                                 <div class="content">
@@ -39,9 +35,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-4 col-12">
@@ -86,34 +80,50 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Product</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form.</p>
+                        <p>The iPhone is a popular and innovative smartphone designed and marketed by Apple Inc., known for
+                            its sleek design, powerful performance, and user-friendly interface.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <?php $countData = count($products); ?>
+                    <?php $countData = $products->count(); ?>
                     @if ($countData < 1)
                         <h5 style="display: flex; justify-content: center; align-items: center;">Product Not Ready :)</h5>
-                    @else
+                    @endif
                 </div>
                 @foreach ($products as $value)
-                <div class="col-lg-3 col-md-6 col-12">
+                    <style>
+                        .product-image {
+                            height: 200px;
+                            /* You can adjust this value to your desired height */
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            overflow: hidden;
+                        }
+
+                        .product-image img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    </style>
+
+                    <div class="col-lg-3 col-md-6 col-12">
                         <div class="single-product">
                             <div class="product-image">
-                                <img src="{{ asset('storage/product/'.$value->gambar) }}" alt="#"
-                                    onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                    onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                <img src="{{ asset('storage/product/' . $value->gambar) }}" alt="Product Image">
                                 <div class="button">
                                     @auth
-                                        <a href="{{route('ordersId',$value->id)}}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                        <a href="{{ route('ordersId', $value->id) }}" class="btn"><i
+                                                class="lni lni-cart"></i>
+                                            Add to Cart</a>
                                     @else
                                         <a href="/login" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                                     @endauth
                                 </div>
                             </div>
-                            
                             <div class="product-info">
                                 <span class="category">Phone</span>
                                 <h4 class="title">
@@ -127,244 +137,42 @@
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div>
                 @endforeach
-                    @endif
-                {{-- <div class="col-lg-3 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-2.jpg.pagespeed.ic.zECdy8GFdP.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <span class="sale-tag">-25%</span>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Speaker</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">Big Power Sound Speaker</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$275.00</span>
-                                <span class="discount-price">$300.00</span>
-                            </div>
-                        </div>
-                    </div>
-
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{-- Tampilkan daftar produk disini --}}
+                    @foreach ($products as $value)
+                        <!-- Kode untuk menampilkan daftar produk -->
+                    @endforeach
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
+            </div>
 
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-3.jpg.pagespeed.ic.vRmHjPpu2i.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Camera</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">WiFi Security Camera</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$399.00</span>
-                            </div>
-                        </div>
+            <!-- Tampilkan tautan Previous dan Next -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="pagination right">
+                        <ul class="pagination-list">
+                            <li class="page-item @if (!$products->previousPageUrl()) disabled @endif">
+                                @if ($products->previousPageUrl())
+                                    <a class="page-link" href="{{ $products->previousPageUrl() }}"
+                                        aria-label="Halaman Sebelumnya">Previous</a>
+                                @else
+                                    <span class="page-link" aria-hidden="true">Previous</span>
+                                @endif
+                            </li>
+                            <li class="page-item @if (!$products->nextPageUrl()) disabled @endif">
+                                @if ($products->nextPageUrl())
+                                    <a class="page-link" href="{{ $products->nextPageUrl() }}"
+                                        aria-label="Halaman Berikutnya">Next</a>
+                                @else
+                                    <span class="page-link" aria-hidden="true">Next</span>
+                                @endif
+                            </li>
+                        </ul>
                     </div>
-
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
-
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-4.jpg.pagespeed.ic.mT1a0Z15AC.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <span class="new-tag">New</span>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Phones</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">iphone 6x plus</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$400.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-5.jpg.pagespeed.ic.tQ8W_M9oN1.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Headphones</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">Wireless Headphones</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$350.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-6.jpg.pagespeed.ic.GGb3AeLttK.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Speaker</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">Mini Bluetooth Speaker</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$70.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-7.jpg.pagespeed.ic.rRlKB_-37i.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <span class="sale-tag">-50%</span>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Headphones</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">PX7 Wireless Headphones</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$100.00</span>
-                                <span class="discount-price">$200.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/xproduct-8.jpg.pagespeed.ic.DLVHLzRhsg.jpg') }}"
-                                alt="#" src="{{ asset('front/pagespeed_static/1.JiBnMqyl6S.gif') }}"
-                                onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"
-                                onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
-                                    Cart</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Laptop</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">Apple MacBook Air</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$899.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> --}}
             </div>
         </div>
     </section>
