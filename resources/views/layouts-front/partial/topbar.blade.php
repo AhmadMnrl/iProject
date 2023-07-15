@@ -50,10 +50,16 @@
                             $customerId = Auth::user()->id;
                             $customer = \App\Models\Customers::where('user_id', $customerId)->first();
                             ?>
-                            <a href="{{ route('profile', $customer->id) }}" aria-label="Toggle navigation">
-                                {{ auth()->user()->name }}
-                            </a>
+                            @isset($customer)
+                                <a href="{{ route('profile', $customer->id) }}" aria-label="Toggle navigation">
+                                    {{ auth()->user()->name }}
+                                </a>
+                            @endisset
                         @endauth
+                        @guest
+                            Hallo, guest
+                        @endguest
+
                     </div>
                     <ul class="user-login">
                         @guest
@@ -97,7 +103,7 @@
                     <div class="navbar-cart">
                         <div class="cart-items">
                             @guest
-                                <a href="{{ route('login') }}">
+                                <a href="{{ route('login') }}" class="main-btn">
                                     <i class="lni lni-cart"></i>
                                     <span class="total-items">0</span>
                                 </a>
@@ -121,7 +127,6 @@
 
                             @endauth
                         </div>
-
                     </div>
                 </div>
             </div>

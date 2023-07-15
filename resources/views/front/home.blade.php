@@ -87,7 +87,7 @@
                 <div class="col-4 mb-3">
                     <form action="{{ route('search') }}" method="GET">
                         <div class="input-group">
-                            <input type="text" name="query" class="form-control" placeholder="Cari Produk...">
+                            <input type="text" name="query" class="form-control" placeholder="Search Product...">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">Search</button>
                                 @auth
