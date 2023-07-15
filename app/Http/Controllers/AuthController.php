@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Hash;
 use Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -24,11 +25,14 @@ class AuthController extends Controller
          ]);
          if(Auth::attempt($request->only('email','password'))){
             if(Auth::user()->role == 'admin'){
+                Alert::success('success', sprintf('Login successful. Welcome %s', Auth::user()->name));
                 return redirect()->route('dashboard');
             }else{
+                Alert::success('success', sprintf('Login successful. Welcome %s', Auth::user()->name));
                 return redirect()->route('home');
             }
          }else{
+            Alert::warning('Login Failed', 'The password you entered is incorrect.');
             return redirect()->route('login');
          }
     }
@@ -74,9 +78,8 @@ class AuthController extends Controller
             'address' => $request->address,
             'phone' => $request->phone
         ]);
-        
         // Setelah autentikasi, Anda dapat melakukan redirect ke halaman yang sesuai
-        return redirect()->route('home')->with('success', 'Registration successful. You are now logged in.');
+        return redirect()->route('login')->with('success', 'Registration successful. Please Login!.');
     }
     public function logout()
     {

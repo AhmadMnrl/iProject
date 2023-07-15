@@ -63,7 +63,7 @@
                                     <a href="{{ route('transactions.edit', $value->order_id) }}" class="btn btn-success">Edit</a>
                                     @endif
                                     <a href="{{ route('transactions.destroy', $value->id) }}"
-                                        class="btn btn-danger">Delete</a>
+                                        class="btn btn-danger" onclick="return confirm('Are you sure you want to delete transaction??')">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -87,4 +87,5 @@
 
         @include('transactions.create')
     </div>
+    @include('sweetalert::alert')
 @endsection

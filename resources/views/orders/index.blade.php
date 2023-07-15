@@ -51,7 +51,7 @@
                                 <td>{{ $value->total_amount }}</td>
                                 <td>
                                     <a href="{{ route('orders.edit', $value->id) }}" class="btn btn-success">Edit</a>
-                                    <a href="{{ route('orders.destroy', $value->id) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('orders.destroy', $value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete Order??')">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -75,4 +75,5 @@
 
         @include('orders.create')
     </div>
+    @include('sweetalert::alert')
 @endsection

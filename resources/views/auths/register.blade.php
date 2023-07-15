@@ -34,6 +34,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{asset('admin/assets/img/favicon/bxl-apple.svg')}}" />
 
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
+    @include('sweetalert::alert')
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -73,6 +75,7 @@
           <!-- Register Card -->
           <div class="card">
             <div class="card-body">
+              
               <!-- Logo -->
               <div class="app-brand justify-content-center">
                 <img src="{{asset('admin/assets/img/favicon/iProject4.png')}}" width="200" alt="">
@@ -127,7 +130,7 @@
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <input required class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
                     <label class="form-check-label" for="terms-conditions">
                       I agree to
                       <a href="javascript:void(0);">privacy policy & terms</a>
@@ -149,7 +152,7 @@
         </div>
       </div>
     </div>
-
+    @include('sweetalert::alert')
     <!-- / Content -->
 
     <!-- Core JS -->

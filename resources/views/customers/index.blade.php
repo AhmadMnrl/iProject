@@ -49,7 +49,8 @@
                                 <td>{{ $value->phone }}</td>
                                 <td>
                                     <a href="{{ route('customers.edit', $value->id) }}" class="btn btn-success">Edit</a>
-                                    <a href="{{ route('customers.destroy', $value->id) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('customers.destroy', $value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete customers??')">Delete</a>
+                                    
                                 </td>
                             </tr>
                         </tbody>
@@ -72,4 +73,5 @@
         </div>
         @include('customers.create')
     </div>
+    @include('sweetalert::alert')
 @endsection
