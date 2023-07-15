@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth', 'checkRole:customer']],function(){
         Route::post('checkoutPost', [HomeController::class,'checkoutPost'])->name('checkoutPost');
         Route::get('transactionView', [HomeController::class,'transactionView'])->name('transactionView');
         Route::get('profile/{id}',[HomeController::class,'profile'])->name('profile');
+        Route::put('profile/update/{id}',[HomeController::class,'profileUpdate'])->name('profileUpdate');
 
     });
 });

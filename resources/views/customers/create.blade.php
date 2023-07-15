@@ -38,7 +38,7 @@
                             <select id="selectProvinsi" class="form-control mt-2" onchange="fetchKota()"></select>
                             <select id="selectKota" class="form-control mt-2" onchange="fetchKecamatan()"></select>
                             <select id="selectKecamatan" class="form-control mt-2" onchange="fetchKelurahan()"></select>
-                            <select id="selectKelurahan" class="form-control mt-2"></select>
+                            <select id="selectKelurahan" class="form-control mt-2" ></select>
                         </div>
                     </div>
                     <div class="row">
