@@ -10,7 +10,7 @@ class Customers extends Model
 {
     use HasFactory;
     protected $table = 'customers';
-    protected $fillable = ['user_id','name','email','address','phone'];
+    protected $fillable = ['user_id','name','username','email','address','phone'];
     protected $primaryKey = 'id';
 
     public function orders() { 

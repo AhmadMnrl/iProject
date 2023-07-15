@@ -1,4 +1,4 @@
-@extends('layouts-front.master')
+@extends('layouts-front.master', ['title' => 'Product Detail'])
 @section('content')
     <div class="breadcrumbs">
         <div class="container">
@@ -28,7 +28,7 @@
                         <div class="product-images">
                             <main id="gallery">
                                 <div class="main-img">
-                                    <img src="{{ asset('front/assets/images/product-details/x01.jpg.pagespeed.ic.XjDYxdFHtv.jpg') }}"
+                                    <img src="{{ asset('/storage/product/' . $products->gambar) }}"
                                         id="current" alt="#">
                                 </div>
                             </main>

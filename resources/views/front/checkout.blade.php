@@ -1,4 +1,4 @@
-@extends('layouts-front.master')
+@extends('layouts-front.master',['title'=>'checkout'])
 @section('content')
     <div class="breadcrumbs">
         <div class="container">

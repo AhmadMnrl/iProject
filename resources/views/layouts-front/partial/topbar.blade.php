@@ -46,7 +46,13 @@
                     <div class="user">
                         <i class="lni lni-user"></i>
                         @auth
-                            {{ auth()->user()->name }}
+                        <?php
+                        $customerId = Auth::user()->id;
+                        $customer = \App\Models\Customers::where('user_id', $customerId)->first();
+                        ?>
+                        <a href="{{ route('profile', $customer->id) }}" aria-label="Toggle navigation">
+                                {{ auth()->user()->name }}
+                            </a>
                         @endauth
                     </div>
                     <ul class="user-login">
@@ -90,27 +96,33 @@
                     </div>
                     <div class="navbar-cart">
                         <div class="cart-items">
-                            <a href="{{ Auth::check() ? '/cart' : '/login' }}" class="main-btn">
+                            @guest
+                                <a href="{{ route('login') }}">
+                                    <i class="lni lni-cart"></i>
+                                    <span class="total-items">0</span>
+                                </a>
+                            @endguest
+                            @auth
                                 <?php
-                                if (Auth::check()) {
-                                    $customerId = Auth::user()->id;
-                                    $orders = \App\Models\Orders::where('customers_id', $customerId)
-                                        ->where('status', 0)
-                                        ->first();
-                                    if ($orders) {
-                                        $notif = \App\Models\OrderItems::where('order_id', $orders->id)->count();
-                                    } else {
-                                        $notif = 0;
-                                    }
-                                } else {
-                                    $notif = 0;
-                                }
+                                $customerId = Auth::user()->id;
+                                $order = DB::table('orders')
+                                    ->join('customers', 'orders.customers_id', '=', 'customers.id')
+                                    ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+                                    ->where('customers.user_id', '=', $customerId)
+                                    ->whereIn('orders.status', ['0', '1']) // Menambahkan kondisi untuk status 0 atau 1
+                                    ->get();
+                                $notif = $order->where('status', '0')->count();
                                 ?>
-                                <i class="lni lni-cart"></i>
-                                <span class="total-items">{{ $notif }}</span>
-                            </a>
-                        </div>                        
-                    </div>                    
+
+                                <a href="{{ $notif > 0 ? route('cart') : route('home') }}" class="main-btn">
+                                    <i class="lni lni-cart"></i>
+                                    <span class="total-items">{{ $notif }}</span>
+                                </a>
+
+                            @endauth
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,7 +145,12 @@
                     <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                         <ul id="nav" class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a href="/" aria-label="Toggle navigation">Home</a>
+                                @guest
+                                    <a href="/" aria-label="Toggle navigation">Home</a>
+                                @endguest
+                                @auth
+                                    <a href="{{ route('home') }}" aria-label="Toggle navigation">Home</a>
+                                @endauth
                             </li>
 
                             {{-- <li class="nav-item">
@@ -148,10 +165,24 @@
                                     <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
                                             Sibebar</a></li>
                                 </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
                             </li> --}}
+                            @auth
+                                <?php
+                                $customerId = Auth::user()->id;
+                                $orderStatus1 = DB::table('orders')
+                                    ->join('customers', 'orders.customers_id', '=', 'customers.id')
+                                    ->where('customers.user_id', '=', $customerId)
+                                    ->where('orders.status', '=', '1')
+                                    ->count();
+                                ?>
+
+                                @if ($orderStatus1 > 0)
+                                    <li class="nav-item">
+                                        <a href="{{ route('checkout') }}" aria-label="Toggle navigation">Continue
+                                            Payment</a>
+                                    </li>
+                                @endif
+                            @endauth
                         </ul>
                     </div>
                 </nav>
