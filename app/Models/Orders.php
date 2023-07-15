@@ -12,7 +12,7 @@ class Orders extends Model
 {
     use HasFactory;
     protected $table = 'orders';
-    protected $fillable = ['customers_id','order_date','total_amount'];
+    protected $fillable = ['customers_id','order_date','total_amount','code'];
     protected $primaryKey = 'id';
 
     public function customers() { 

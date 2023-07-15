@@ -9,6 +9,8 @@ use Auth;
 use Illuminate\View\View;
 //return type redirectResponse
 use Illuminate\Http\RedirectResponse;
+use Hash;
+use Str;
 
 class AuthController extends Controller
 {
@@ -21,11 +23,10 @@ class AuthController extends Controller
             'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/s'
          ]);
          if(Auth::attempt($request->only('email','password'))){
-            Auth::attempt($request->only('email','password'));
-            if(auth()->user()->role == 'admin'){
-               return redirect()->route('dashboard');
+            if(Auth::user()->role == 'admin'){
+                return redirect()->route('dashboard');
             }else{
-               return redirect()->route('home');
+                return redirect()->route('home');
             }
          }else{
             return redirect()->route('login');
@@ -54,7 +55,28 @@ class AuthController extends Controller
     }
     public function postRegister(Request $request)
     {
-      
+        $user = new \App\Models\User;
+        $user->role = 'customer';
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->remember_token = Str::random(60);
+        $user->save();
+        
+        // Authentikasi pengguna baru
+        Auth::login($user);
+        
+        // insert ke table customers
+        $customers = \App\Models\Customers::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone' => $request->phone
+        ]);
+        
+        // Setelah autentikasi, Anda dapat melakukan redirect ke halaman yang sesuai
+        return redirect()->route('home')->with('success', 'Registration successful. You are now logged in.');
     }
     public function logout()
     {

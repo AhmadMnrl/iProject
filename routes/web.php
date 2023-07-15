@@ -29,7 +29,13 @@ Route::group(['middleware' => ['auth', 'checkRole:customer']],function(){
     Route::group(['prefix'=>'user'],function(){
         Route::get('home',[HomeController::class,'index'])->name('home');
         Route::get('orders/{id}',[HomeController::class,'ordersId'])->name('ordersId');
+        Route::get('orders/destroy/{id}',[HomeController::class,'ordersDestroy'])->name('ordersDestroy');
         Route::post('orders/{id}',[HomeController::class,'ordersPost'])->name('ordersPost');
+        Route::get('cart', [HomeController::class,'cart'])->name('cart');
+        Route::get('checkout/waitingPayment', [HomeController::class,'checkout'])->name('checkout');
+        Route::post('checkoutPost', [HomeController::class,'checkoutPost'])->name('checkoutPost');
+        Route::get('transactionView', [HomeController::class,'transactionView'])->name('transactionView');
+        Route::get('profile/{id}',[HomeController::class,'profile'])->name('profile');
 
     });
 });
@@ -85,13 +91,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
 Route::get('/login',[AuthController::class,'getLogin'])->name('login');
 Route::post('/postlogin',[AuthController::class,'postLogin'])->name('postlogin');
 Route::get('/register',[AuthController::class,'getRegister'])->name('register');
+Route::post('/postregister',[AuthController::class,'postRegister'])->name('postregister');
 Route::get('/logout',[AuthController::class,'logout']);
 
 // Front 
 Route::get('/',[HomeController::class,'waiting']);
-Route::get('/cart', function () {
-    return view('front.cart');
-});
-Route::get('/checkout', function () {
-    return view('front.checkout');
-});

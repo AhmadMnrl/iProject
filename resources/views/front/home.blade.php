@@ -1,4 +1,4 @@
-@extends('layouts-front.master')
+@extends('layouts-front.master', ['title' => 'Home'])
 @section('content')
     {{-- Fitur Slider  --}}
     <section class="hero-area">
@@ -98,8 +98,8 @@
                         <h5 style="display: flex; justify-content: center; align-items: center;">Product Not Ready :)</h5>
                     @else
                 </div>
+                @foreach ($products as $value)
                 <div class="col-lg-3 col-md-6 col-12">
-                    @foreach ($products as $value)
                         <div class="single-product">
                             <div class="product-image">
                                 <img src="{{ asset('storage/product/'.$value->gambar) }}" alt="#"
@@ -107,7 +107,7 @@
                                     onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
                                 <div class="button">
                                     @auth
-                                        <a href="/cart" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                        <a href="{{route('ordersId',$value->id)}}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                                     @else
                                         <a href="/login" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                                     @endauth
@@ -127,9 +127,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                    @endif
                 </div>
+                @endforeach
+                    @endif
                 {{-- <div class="col-lg-3 col-md-6 col-12">
                     <div class="single-product">
                         <div class="product-image">
