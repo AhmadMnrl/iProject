@@ -46,6 +46,7 @@
                                     <div class="form-group quantity">
                                         <label for="color">Quantity</label>
                                         <input type="text" name="quantity" class="form-control">
+                                        <p class="info-text">Stock : {{ $products->stock }}</p>
                                     </div>
                                 </div>
                             </div>

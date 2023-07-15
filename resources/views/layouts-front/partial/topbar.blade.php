@@ -91,7 +91,7 @@
                     <div class="nav-hotline">
                         <i class="lni lni-phone"></i>
                         <h3>Hotline:
-                            <span>(+100) 123 456 7890</span>
+                            <span>(+62) 812 8229 8326</span>
                         </h3>
                     </div>
                     <div class="navbar-cart">
