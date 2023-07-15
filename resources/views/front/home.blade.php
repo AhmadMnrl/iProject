@@ -8,30 +8,28 @@
                     <div class="slider-head">
                         <div class="hero-slider">
                             <div class="single-slider"
-                                style="background-image:url({{ asset('front/assets/images/hero/xslider-bg1.jpg.pagespeed.ic.QB-k7UuPjB.jpg') }})">
+                                style="background-image:url({{ asset('front/assets/images/hero/xr3.png') }})">
                                 <div class="content">
-                                    <h2><span>No restocking fee ($35 savings)</span>
-                                        M75 Sport Watch
+                                    <h2><span>Best Offers!</span>
+                                        iPhone XR Yellow Edition
                                     </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                                        labore dolore magna aliqua.</p>
-                                    <h3><span>Now Only</span> $320.99</h3>
+                                    <p>Apple iPhone XR smartphone. Announced Sep 2018. Features 6.1″ display, Apple A12 Bionic chipset, 12 MP primary camera, 7 MP front camera, 2942 mAh battery</p>
+                                    <h3><span>Now Only</span> Rp 4.900.000 - Rp 5.500.000</h3>
                                     <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
+                                        <a href="#trending-product" class="btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="single-slider"
-                                style="background-image:url({{ asset('front/assets/images/hero/xslider-bg2.jpg.pagespeed.ic.nEcfNovovG.jpg') }})">
+                                style="background-image:url({{ asset('front/assets/images/hero/xr5.png') }})">
                                 <div class="content">
-                                    <h2><span>Big Sale Offer</span>
-                                        Get the Best Deal on CCTV Camera
+                                    <h2><span style="color: white">Best Offers!</span>
+                                        iPhone XR Blue Edition
                                     </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                                        labore dolore magna aliqua.</p>
-                                    <h3><span>Combo Only:</span> $590.00</h3>
+                                    <p style="color: white">Apple iPhone XR smartphone. Announced Sep 2018. Features 6.1″ display, Apple A12 Bionic chipset, 12 MP primary camera, 7 MP front camera, 2942 mAh battery.</p>
+                                    <h3><span style="color: white">Now Only:</span> Rp 4.900.000 - Rp 5.500.000</h3>
                                     <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
+                                        <a href="#trending-product" class="btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -46,10 +44,10 @@
                                 style="background-image: url('{{ asset('front/assets/images/hero/slider-bnr.jpg') }}');">
                                 <div class="content">
                                     <h2>
-                                        <span>New line required</span>
+                                        <span>New Booming!</span>
                                         iPhone 12 Pro Max
                                     </h2>
-                                    <h3>$259.99</h3>
+                                    <h3>Rp. 10.500.000</h3>
                                 </div>
                             </div>
 
@@ -59,9 +57,9 @@
                             <div class="hero-small-banner style2">
                                 <div class="content">
                                     <h2>Weekly Sale!</h2>
-                                    <p>Saving up to 50% off all online store items this week.</p>
+                                    <p>Saving up to 25% off all online store items this week.</p>
                                     <div class="button">
-                                        <a class="btn" href="product-grids.html">Shop Now</a>
+                                        <a class="btn" href="#trending-product">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +72,7 @@
     </section>
 
     <!-- fitur trending produk -->
-    <section class="trending-product section">
+    <section class="trending-product section" id="trending-product">
         <div class="container">
             <div class="row">
                 <div class="col-12">

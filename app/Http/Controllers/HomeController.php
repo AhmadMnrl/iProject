@@ -37,14 +37,24 @@ class HomeController extends Controller
         return view('front.produk-detail',compact('products'));
     }
     function ordersDestroy($id) : RedirectResponse {
-        $orderItem = OrderItems::where('id',$id)->first();
+        $orderItem = OrderItems::where('id', $id)->first();
 
-        $order = Orders::find($orderItem->order_id);
-        $order->total_amount = $order->total_amount-$orderItem->total_amount_items;
-        $order->save();
+    $order = Orders::find($orderItem->order_id);
+    $order->total_amount = $order->total_amount - $orderItem->total_amount_items;
+    $order->save();
 
-        $orderItem->delete();
+    $orderItem->delete();
+
+    // Cek jumlah order yang tersisa
+    $remainingOrdersCount = OrderItems::where('order_id', $order->id)->count();
+
+    if ($remainingOrdersCount < 1) {
+        Alert::info('success', 'The product in the basket has been successfully deleted, please add a product.');
+        return redirect()->route('home');
+    } else {
+        Alert::info('success', 'The product has been deleted successfully.');
         return redirect()->route('cart');
+    }
     }
     public function ordersPost(Request $request, $id)
     {
