@@ -46,11 +46,11 @@
                     <div class="user">
                         <i class="lni lni-user"></i>
                         @auth
-                        <?php
-                        $customerId = Auth::user()->id;
-                        $customer = \App\Models\Customers::where('user_id', $customerId)->first();
-                        ?>
-                        <a href="{{ route('profile', $customer->id) }}" aria-label="Toggle navigation">
+                            <?php
+                            $customerId = Auth::user()->id;
+                            $customer = \App\Models\Customers::where('user_id', $customerId)->first();
+                            ?>
+                            <a href="{{ route('profile', $customer->id) }}" aria-label="Toggle navigation">
                                 {{ auth()->user()->name }}
                             </a>
                         @endauth
@@ -152,20 +152,6 @@
                                     <a href="{{ route('home') }}" aria-label="Toggle navigation">Home</a>
                                 @endauth
                             </li>
-
-                            {{-- <li class="nav-item">
-                                <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                    data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                <ul class="sub-menu collapse" id="submenu-1-4">
-                                    <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid
-                                            Sidebar</a>
-                                    </li>
-                                    <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
-                                    <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
-                                            Sibebar</a></li>
-                                </ul>
-                            </li> --}}
                             @auth
                                 <?php
                                 $customerId = Auth::user()->id;
@@ -174,9 +160,14 @@
                                     ->where('customers.user_id', '=', $customerId)
                                     ->where('orders.status', '=', '1')
                                     ->count();
+                                
+                                $orderStatus2 = DB::table('orders')
+                                    ->join('customers', 'orders.customers_id', '=', 'customers.id')
+                                    ->where('customers.user_id', '=', $customerId)
+                                    ->where('orders.status', '=', '2')
+                                    ->count();
                                 ?>
-
-                                @if ($orderStatus1 > 0)
+                                @if ($orderStatus1 > 0 && $orderStatus2 == 0)
                                     <li class="nav-item">
                                         <a href="{{ route('checkout') }}" aria-label="Toggle navigation">Continue
                                             Payment</a>
@@ -186,7 +177,6 @@
                         </ul>
                     </div>
                 </nav>
-
             </div>
         </div>
     </div>

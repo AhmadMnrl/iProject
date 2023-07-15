@@ -97,3 +97,5 @@ Route::get('/logout',[AuthController::class,'logout']);
 
 // Front 
 Route::get('/',[HomeController::class,'waiting']);
+Route::get('search',[HomeController::class,'search'])->name('search');
+

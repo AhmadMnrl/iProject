@@ -85,6 +85,24 @@
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-end">
+                <div class="col-4 mb-3">
+                    <form action="{{ route('search') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="query" class="form-control" placeholder="Cari Produk...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                @auth
+                                <a href="{{ route('home') }}" class="btn btn-secondary">Show All</a>    
+                                @endauth
+                                @guest
+                                <a href="/" class="btn btn-secondary">Show All</a>    
+                                @endguest
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <?php $countData = $products->count(); ?>
@@ -93,6 +111,7 @@
                     @endif
                 </div>
                 @foreach ($products as $value)
+                  @if ($value->stock > 0)
                     <style>
                         .product-image {
                             height: 200px;
@@ -138,6 +157,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 @endforeach
             </div>
             <div class="row">

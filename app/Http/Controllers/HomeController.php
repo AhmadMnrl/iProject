@@ -143,26 +143,26 @@ class HomeController extends Controller
     function checkout() : View {
         $userId = Auth::user()->id;
 
-$checkedOutOrders = DB::table('orders')
-    ->join('customers', 'orders.customers_id', '=', 'customers.id')
-    ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-    ->join('products', 'order_items.product_id', '=', 'products.id')
-    ->where('customers.user_id', $userId)
-    ->where('orders.status', 1)
-    ->select(
-        'customers.name as name',
-        'products.gambar',
-        'products.name as name',
-        'products.price', // Fix the column name here
-        'order_items.quantity',
-        'order_items.total_amount_items',
-        'orders.total_amount',
-        'orders.code',
+        $checkedOutOrders = DB::table('orders')
+            ->join('customers', 'orders.customers_id', '=', 'customers.id')
+            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->where('customers.user_id', $userId)
+            ->where('orders.status', 1)
+            ->select(
+                'customers.name as name',
+                'products.gambar',
+                'products.name as name',
+                'products.price', // Fix the column name here
+                'order_items.quantity',
+                'order_items.total_amount_items',
+                'orders.total_amount',
+                'orders.code',
 
-    )
-    ->get();
+            )
+            ->get();
 
-return view('front.checkout', compact('checkedOutOrders'));
+        return view('front.checkout', compact('checkedOutOrders'));
 
         
     }
@@ -171,7 +171,13 @@ return view('front.checkout', compact('checkedOutOrders'));
         $customer = \App\Models\Customers::where('user_id', $customerId)->get();
         return view('front.profile',compact('customer'));
     }
-
+    function search(Request $request) : View {
+        $query = $request->input('query');
+        $products = Products::where('name', 'like', '%' . $query . '%')
+            ->where('stock', '>', 0)
+            ->paginate(12);
+        return view('front.home', compact('products'));
+    }
     /**
      * Show the form for creating a new resource.
      */
