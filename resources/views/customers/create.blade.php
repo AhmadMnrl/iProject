@@ -34,6 +34,13 @@
                     </div>
                     <div class="row">
                         <div class="col mb-3">
+                            <label for="nameBasic" class="form-label">Phone</label>
+                            <input type="text" name="phone" placeholder="your phone numbers"
+                                class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
                             <label id="addressLabel" class="form-label">Address</label>
                             <select id="selectProvinsi" class="form-control mt-2" onchange="fetchKota()"></select>
                             <select id="selectKota" class="form-control mt-2" onchange="fetchKecamatan()"></select>
@@ -46,21 +53,6 @@
                             <label id="addressLabel" class="form-label">Full Address</label>
                             <textarea name="address" id="addressInput" cols="30" rows="10"
                                 class="form-control" value="" autocomplete="off"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Phone</label>
-                            <input type="text" name="phone" placeholder="your phone numbers"
-                                class="form-control" autocomplete="off" onkeypress="return hanyaAngka(event)">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Password</label>
-                            <input type="password" id="password" class="form-control" name="password"
-                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                aria-describedby="password" />
                         </div>
                     </div>
                     <div class="modal-footer">

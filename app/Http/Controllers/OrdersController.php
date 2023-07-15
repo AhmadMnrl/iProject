@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Customers;
 use App\Models\Products;
 use App\Models\OrderItems;
+use DB;
 
 class OrdersController extends Controller
 {
@@ -17,11 +18,17 @@ class OrdersController extends Controller
      */
     function index() : View
     {
-        $orders = Orders::latest()->paginate(10);
         $customers = Customers::all();
-        $orderItem = OrderItems::all();
         $products = Products::all();
-        return view('orders.index',compact('orders', 'customers','orderItem', 'products'));
+        $orders = DB::table('orders')
+        ->select('orders.*', 'customers.name as customer_name', 'products.name as product_name', 'products.price', 'order_items.quantity')
+        ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+        ->join('products', 'order_items.product_id', '=', 'products.id')
+        ->join('customers', 'orders.customers_id', '=', 'customers.id')
+        ->where('orders.status', 1)
+        ->latest()
+        ->paginate(10);    
+        return view('orders.index', compact('orders','customers','products'));
     }
 
     /**
@@ -62,11 +69,6 @@ class OrdersController extends Controller
         $orderItem = new OrderItems;
         $orderItem->order_id = $order->id;
         $orderItem->save();
-
-
-
-
-        
 
         return redirect()->route('orders.index')->with(['success' => 'Orders created successfully.']);
     }

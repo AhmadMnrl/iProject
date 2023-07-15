@@ -39,8 +39,7 @@ class CustomersController extends Controller
         $user->role = 'customer';
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);;
-        $user->remember_token = Str::random(60);
+        $user->address = $request->address;
         $user->save();
 
         // insert ke table customers
