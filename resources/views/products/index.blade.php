@@ -54,7 +54,7 @@
                                 <td>{{ $value->stock }}</td>
                                 <td>
                                     <a href="{{ route('products.edit', $value->id) }}" class="btn btn-success">Edit</a>
-                                    <a href="{{ route('products.destroy', $value->id) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('products.destroy', $value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete customers??')">Delete</a>
                                 </td>
 
                             </tr>
@@ -100,5 +100,5 @@
         </div>
         @include('products.create')
     </div>
-
+    @include('sweetalert::alert')
 @endsection

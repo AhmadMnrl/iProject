@@ -88,7 +88,14 @@ class CustomersController extends Controller
     public function destroy($id) : RedirectResponse
     {
         $customers = \App\Models\Customers::find($id);
+        if (!$customers) {
+            return redirect()->route('customers.index')->with('error', 'Customer Not Found');
+        }
         $customers->delete();
-        return redirect()->route('customers.index')->with('success','Product deleted successfully');
+        $user = \App\Models\User::where('email', $customers->email)->first();
+    if ($user) {
+        $user->delete();
+    }
+        return redirect()->route('customers.index')->with('success','Customers deleted successfully');
     }
 }

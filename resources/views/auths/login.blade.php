@@ -34,6 +34,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{asset('admin/assets/img/favicon/bxl-apple.svg')}}" />
 
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
+    @include('sweetalert::alert')
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,6 +79,12 @@
               <div class="app-brand justify-content-center">
                 <img src="{{asset('admin/assets/img/favicon/iProject4.png')}}" width="200" alt="">
               </div>
+              @if ($message = Session::get('success'))
+              <div class="alert alert-success alert-dismissible" role="alert">
+                  {{ $message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              @endif
               <!-- /Logo -->
               <center>
               <h4 class="mb-2">Welcome to iProject!</h4>
@@ -137,6 +145,7 @@
         </div>
       </div>
     </div>
+    @include('sweetalert::alert')
 
     <!-- / Content -->
 
