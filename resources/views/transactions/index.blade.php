@@ -46,7 +46,7 @@
                                 <td>{{$value->customer_name}}</td>
                                 <td>{{ $value->order_id }}</td>
                                 <td>{{ $value->transaction_date }}</td>
-                                <td>{{ $value->amount }}</td>
+                                <td>{{ number_format($value->amount+$value->code) }}</td>
                                 <td>
                                     @if ($value)
                                         @if ($value->status == 1)

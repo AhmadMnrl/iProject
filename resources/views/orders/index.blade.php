@@ -46,7 +46,7 @@
                                 <td>{{ $no + 1 }}</td>
                                 <td>{{ $value->customer_name }}</td>
                                 <td>{{ $value->product_name }}</td>
-                                <td>{{ $value->price }}</td>
+                                <td>{{ number_format($value->price) }}</td>
                                 <td>{{ $value->quantity }}</td>
                                 <td>{{ $value->total_amount }}</td>
                                 <td>

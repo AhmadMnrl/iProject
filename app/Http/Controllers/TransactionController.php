@@ -18,7 +18,7 @@ class TransactionController extends Controller
     function index() : View
     {
         $transactions = DB::table('transactions')
-        ->select('transactions.*', 'orders.status', 'customers.name as customer_name')
+        ->select('transactions.*', 'orders.status', 'orders.code', 'customers.name as customer_name')
         ->leftJoin('orders', 'transactions.order_id', '=', 'orders.id')
         ->leftJoin('customers', 'orders.customers_id', '=', 'customers.id')
         ->whereIn('orders.status', [1, 2])
