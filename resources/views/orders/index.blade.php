@@ -50,7 +50,7 @@
                                 <td>{{ $value->quantity }}</td>
                                 <td>{{ $value->total_amount }}</td>
                                 <td>
-                                    <a href="{{ route('orders.edit', $value->id) }}" class="btn btn-success">Edit</a>
+                                    {{-- <a href="{{ route('orders.edit', $value->id) }}" class="btn btn-success">Edit</a> --}}
                                     <a href="{{ route('orders.destroy', $value->id) }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
