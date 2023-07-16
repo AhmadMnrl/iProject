@@ -55,6 +55,8 @@ class AuthController extends Controller
     }
     public function postRegister(Request $request)
     {
+        
+
         $user = new \App\Models\User;
         $user->role = 'customer';
         $user->name = $request->name;
@@ -76,7 +78,7 @@ class AuthController extends Controller
         ]);
         
         // Setelah autentikasi, Anda dapat melakukan redirect ke halaman yang sesuai
-        return redirect()->route('home')->with('success', 'Registration successful. You are now logged in.');
+        return redirect()->route('login')->with('success', 'Registration successful. Please Login!.');
     }
     public function logout()
     {
