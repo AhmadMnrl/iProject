@@ -62,7 +62,6 @@
                     @endforeach
                 @endif
             </table>
-
             @php
                 $pageNumber = $products->currentPage();
             @endphp

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Hash;
 use Str;
+use Auth;
 use Illuminate\Http\RedirectResponse;
 
 class CustomersController extends Controller
@@ -39,7 +40,6 @@ class CustomersController extends Controller
         $user->role = 'customer';
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->address = $request->address;
         $user->save();
 
         // insert ke table customers
@@ -87,8 +87,24 @@ class CustomersController extends Controller
      */
     public function destroy($id) : RedirectResponse
     {
-        $customers = \App\Models\Customers::find($id);
-        $customers->delete();
-        return redirect()->route('customers.index')->with('success','Product deleted successfully');
+        $customer = Customers::find($id);
+
+        if (!$customer) {
+            return redirect()->route('customers.index')->with('error', 'Customer not found');
+        }
+        // Pastikan bahwa user yang sedang login memiliki hak akses untuk menghapus data ini
+        if ($customer->user_id !== Auth::user()->id) {
+            return redirect()->route('customers.index')->with('error', 'You are not authorized to delete this customer');
+        }
+        // Hapus data dari tabel Customers
+        $customer->delete();
+        // Jika terdapat hubungan foreign key antara tabel Customers dan User, maka hapus juga data di tabel User
+        // Misalnya, jika kolom yang mengaitkan antara kedua tabel adalah 'user_id'
+        // Jika tidak ada hubungan seperti ini, Anda perlu menyesuaikan kode berikut sesuai dengan desain database Anda
+        $user = User::find($customer->user_id);
+        if ($user) {
+            $user->delete();
+        }
+        return redirect()->route('customers.index')->with('success', 'Customer and related user deleted successfully');
     }
 }
