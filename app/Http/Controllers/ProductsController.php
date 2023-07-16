@@ -18,7 +18,7 @@ class ProductsController extends Controller
      */
    function index(Request $request) : View 
    {
-        $pageNumber = $request->query('page', 1); // Mengambil nomor halaman dari query string
+        $pageNumber = $request->query('page', 1);
         $products = Products::paginate(5, ['*'], 'page', $pageNumber);
         return view('products.index',compact('products','pageNumber'));
    }
@@ -76,7 +76,6 @@ class ProductsController extends Controller
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'gambar' => 'required',
             'stock' => 'required'
         ]);
 

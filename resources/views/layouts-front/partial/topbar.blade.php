@@ -51,7 +51,7 @@
                             $customer = \App\Models\Customers::where('user_id', $customerId)->first();
                             ?>
                             @isset($customer)
-                                <a href="{{ route('profile', $customer->id) }}" aria-label="Toggle navigation">
+                                <a href="{{ route('profile', $customer->id) }}" class="main-btn">
                                     {{ auth()->user()->name }}
                                 </a>
                             @endisset
