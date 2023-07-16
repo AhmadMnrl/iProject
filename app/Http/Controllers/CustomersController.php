@@ -71,7 +71,6 @@ class CustomersController extends Controller
     public function update(Request $request, $id) : RedirectResponse
     {
         $request->validate([
-            'user_id'     => 'required',
             'name'     => 'required',
             'email'   => 'required',
             'address'     => 'required',

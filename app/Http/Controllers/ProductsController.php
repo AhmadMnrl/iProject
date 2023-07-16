@@ -19,7 +19,7 @@ class ProductsController extends Controller
    function index(Request $request) : View 
    {
         $pageNumber = $request->query('page', 1);
-        $products = Products::paginate(5, ['*'], 'page', $pageNumber);
+        $products = Products::orderBy('created_at', 'desc')->paginate(5, ['*'], 'page', $pageNumber);
         return view('products.index',compact('products','pageNumber'));
    }
    function produk()

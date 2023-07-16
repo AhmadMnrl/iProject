@@ -120,6 +120,9 @@
                       name="password"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
+                      pattern=".{8,}" 
+                      title="Password harus minimal 8 digit"
+                      required
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
@@ -127,7 +130,7 @@
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <input required class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
                     <label class="form-check-label" for="terms-conditions">
                       I agree to
                       <a href="javascript:void(0);">privacy policy & terms</a>

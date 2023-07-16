@@ -78,6 +78,14 @@
                 <img src="{{asset('admin/assets/img/favicon/iProject4.png')}}" width="200" alt="">
               </div>
               <!-- /Logo -->
+              <div class="d-flex justify-content-end pt-2">
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {{ $message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </div>
               <center>
               <h4 class="mb-2">Welcome to iProject!</h4>
               <p class="mb-4">Please sign-in to your account and find your dream iphone</p>

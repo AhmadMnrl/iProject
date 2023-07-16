@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="address" class="form-label">Full Address</label>
-                            <textarea name="address" id="address" cols="30" rows="10" class="form-control"
+                            <textarea name="address" id="addressInput" cols="30" rows="10" class="form-control"
                                 autocomplete="off" value="">{{$customers->address}}</textarea>
                         </div>
                     </div>
