@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Customers;
+use App\Models\Transaction;
 use App\Models\Products;
 use App\Models\OrderItems;
 use DB;
@@ -44,33 +45,47 @@ class OrdersController extends Controller
      */
     function store(Request $request) : RedirectResponse
     {
-        $this->validate($request, [
-            'customers_id'     => 'required|',
-            'total_amount'   => 'required|'
-        ]);
-        $customersId = $request->customers_id;
-        $customer = Customers::find($customersId);
-        $productId = $request->product_id;
-        $products = Products::find($productId);
+        $customerId = $request->customers_id;
+$totalAmount = $request->total_amount;
+$productId = $request->product_id;
+$quantity = $request->quantity;
 
-        $orderItem = new OrderItems;
-        $orderItem->product_id = $products->id;
-        $orderItem->quantity = $request->quantity;
-        $orderItem->save();
+// Cari data customer berdasarkan $customerId menggunakan model Customers
+$customer = Customers::find($customerId);
 
-        $order = new Orders;
-        $order->customers_id = $customer->id;
-        $order->product_id = $products->id;
-        $order->order_date = date("Y/m/d");
-        $order->order_item_id = $orderItem->id;
-        $order->total_amount = $request->total_amount;
-        $order->save();
+// Cari data product berdasarkan $productId menggunakan model Products
+$product = Products::find($productId);
 
-        $orderItem = new OrderItems;
-        $orderItem->order_id = $order->id;
-        $orderItem->save();
+// Jika customer dan product ditemukan, kita lanjutkan menyimpan data ke tabel orders dan order_items.
+if ($customer && $product) {
+    // Simpan data ke tabel orders menggunakan model Orders
+    $order = new Orders;
+    $order->customers_id = $customer->id;
+    $order->order_date = date("Y/m/d");
+    $order->total_amount = $totalAmount;
+    $order->status = 1;
+    $order->save();
 
-        return redirect()->route('orders.index')->with(['success' => 'Orders created successfully.']);
+    // Simpan data ke tabel order_items menggunakan model OrderItems
+    $orderItem = new OrderItems;
+    $orderItem->product_id = $product->id;
+    $orderItem->quantity = $quantity;
+    $orderItem->order_id = $order->id;
+    $orderItem->total_amount_items = $product->price * $request->quantity;
+    $orderItem->save();
+
+    $transaction = new Transaction;
+    $transaction->order_id = $orderItem->order_id;                ;
+    $transaction->amount = $request->total_amount;
+    $transaction->transaction_date = now();
+    $transaction->save();
+    // Redirect ke halaman yang diinginkan setelah berhasil menyimpan data
+    return redirect()->route('orders.index')->with(['success' => 'Order created successfully.']);
+} else {
+    // Tindakan yang diambil jika customer atau product tidak ditemukan.
+    // Misalnya, lempar pesan error atau ambil tindakan sesuai kebutuhan Anda.
+    return redirect()->back()->with(['error' => 'Customer or product not found.']);
+}
     }
 
     /**
